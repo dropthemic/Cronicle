@@ -253,10 +253,10 @@ app.extend({
 		// init socket.io client
 		var self = this;
 		
-		var url = this.proto + this.masterHostname + ':' + this.port;
+		var url = this.proto + this.masterHostname + ':' + (this.web_socket_port || this.port);
 		if (!config.web_socket_use_hostnames && this.servers && this.servers[this.masterHostname] && this.servers[this.masterHostname].ip) {
 			// use ip instead of hostname if available
-			url = this.proto + this.servers[this.masterHostname].ip + ':' + this.port;
+			url = this.proto + this.servers[this.masterHostname].ip + ':' + (this.web_socket_port || this.port);
 		}
 		Debug.trace("Websocket Connect: " + url);
 		
@@ -414,10 +414,10 @@ app.extend({
 		Debug.trace("New Master Hostname: " + hostname);
 		this.masterHostname = hostname;
 		
-		this.base_api_url = this.proto + this.masterHostname + ':' + this.port + config.base_api_uri;
+		this.base_api_url = this.proto + this.masterHostname + ':' + (this.web_socket_port || this.port) + config.base_api_uri;
 		if (!config.web_socket_use_hostnames && this.servers && this.servers[this.masterHostname] && this.servers[this.masterHostname].ip) {
 			// use ip instead of hostname if available
-			this.base_api_url = this.proto + this.servers[this.masterHostname].ip + ':' + this.port + config.base_api_uri;
+			this.base_api_url = this.proto + this.servers[this.masterHostname].ip + ':' + (this.web_socket_port || this.port) + config.base_api_uri;
 		}
 		
 		Debug.trace("API calls now going to: " + this.base_api_url);
